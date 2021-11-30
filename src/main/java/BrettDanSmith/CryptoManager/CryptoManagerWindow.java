@@ -51,6 +51,9 @@ import com.teamdev.jxbrowser.engine.RenderingMode;
 import com.teamdev.jxbrowser.navigation.event.LoadFinished;
 import com.teamdev.jxbrowser.view.swing.BrowserView;
 
+import net.lingala.zip4j.ZipFile;
+import net.lingala.zip4j.exception.ZipException;
+
 public class CryptoManagerWindow extends JFrame {
 	private static final long serialVersionUID = -6986453964668526169L;
 	private JPanel contentPane;
@@ -207,8 +210,15 @@ public class CryptoManagerWindow extends JFrame {
 		mntmMiner_Download.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					FileUtils.copyURLToFile(new URL(""), new File("data/tmp/pmdownload.zip"));
+					FileUtils.copyURLToFile(new URL("https://github.com/Arcratist/CryptoManager/blob/master/PhoenixMiner.zip?raw=true"), new File("data/tmp/pmdownload.zip"));
 				} catch (IOException e1) {
+					e1.printStackTrace();
+					return;
+				}
+		         ZipFile zipFile = new ZipFile(new File("data/tmp/pmdownload.zip"));
+		         try {
+					zipFile.extractAll(new File("data/").getAbsolutePath());
+				} catch (ZipException e1) {
 					e1.printStackTrace();
 				}
 			}
