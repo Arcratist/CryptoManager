@@ -6,6 +6,7 @@ import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Paths;
 
@@ -30,6 +31,8 @@ import javax.swing.SpringLayout;
 import javax.swing.SwingConstants;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+
+import org.apache.commons.io.FileUtils;
 
 import com.eleet.dragonconsole.DragonConsole;
 import com.google.gson.JsonElement;
@@ -203,7 +206,11 @@ public class CryptoManagerWindow extends JFrame {
 		JMenuItem mntmMiner_Download = new JMenuItem("Download Miner");
 		mntmMiner_Download.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
+				try {
+					FileUtils.copyURLToFile(new URL(""), new File("data/tmp/pmdownload.zip"));
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
 			}
 		});
 		mnMiner.add(mntmMiner_Download);
