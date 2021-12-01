@@ -39,7 +39,7 @@ public class LoadingDialog extends JDialog {
 		contentPanel.add(progressBar);
 		progressBar.setString("Loading please wait...");
 		
-		JLabel lblNewLabel = new JLabel("Crypto Manager v0.01a By @BrettDanSmith");
+		JLabel lblNewLabel = new JLabel("Crypto Manager v0.02a By @BrettDanSmith");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNewLabel.setBounds(5, 100, 440, 20);

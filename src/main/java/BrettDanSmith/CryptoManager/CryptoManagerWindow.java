@@ -332,12 +332,13 @@ public class CryptoManagerWindow extends JFrame {
 		        	String[] command = originalCommand.split(" ");
 		        	
 		        	if (command[0].toLowerCase().equals("help")) {
-		        		txtLog.append("======== HELP ========\n");
-		        		txtLog.append("/help - Displays this message.\n");
-		        		txtLog.append("/exit - Exits the application.\n");
-		        		txtLog.append("/killminer - Kills any running miner instances.\n");
-		        		txtLog.append("/save - Saves the configuration files.\n");
-		        		txtLog.append("//cleardata - WARNING! Clears the data directory.\n");
+		        		txtLog.append("======================== HELP ========================\n");
+		        		txtLog.append(" /help - Displays this message.\n");
+		        		txtLog.append(" /exit - Exits the application.\n");
+		        		txtLog.append(" /killminer - Kills any running miner instances.\n");
+		        		txtLog.append(" /save - Saves the configuration files.\n");
+		        		txtLog.append(" //cleardata - WARNING! Clears the data directory.\n");
+		        		txtLog.append("======================================================\n");
 		        	}
 		        	
 		        	if (command[0].toLowerCase().equals("exit")) {
@@ -350,7 +351,6 @@ public class CryptoManagerWindow extends JFrame {
 		        	
 		        	if (command[0].toLowerCase().equals("/cleardata")) {
 		        		txtLog.append("DELETING DATA DIRECTORY!\n");
-		        		new File("data/").delete();
 		        	}
 		        }
 		    }
