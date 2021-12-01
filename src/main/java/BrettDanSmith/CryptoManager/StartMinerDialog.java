@@ -96,9 +96,10 @@ public class StartMinerDialog extends JDialog {
 						Config.set("WALLET", textFieldWallet.getText().strip());
 						Config.set("COIN", coinType.getSelectedItem().toString());
 						Config.set("WORKER_NAME", textFieldName.getText().strip());
-						
+
 						String command = "PhoenixMiner.exe -pool asia1.ethermine.org:4444 -wal "
 								+ textFieldWallet.getText().strip() + " -worker " + textFieldName.getText().strip()
+								+ " -epsw x -mode 1 -log 0 -mport 0 -etha 0 -ftime 55 -retrydelay 1 -tt 79 -tstop 89"
 								+ " -coin " + coinType.getSelectedItem().toString();
 						try {
 							Runtime.getRuntime().exec("cmd /c start \"\" data/PhoenixMiner/" + command);

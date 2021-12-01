@@ -1,5 +1,6 @@
 package BrettDanSmith.CryptoManager;
 
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Image;
@@ -34,6 +35,7 @@ import javax.swing.event.ChangeListener;
 
 import org.apache.commons.io.FileUtils;
 
+import com.eleet.dragonconsole.CommandProcessor;
 import com.eleet.dragonconsole.DragonConsole;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -60,7 +62,6 @@ public class CryptoManagerWindow extends JFrame {
 	private InfoDialog infoDialog;
 	private JLabel lblTitle, lblUnpaidBalance, lblStats;
 	private JProgressBar progressBar;
-	private JTextField textField;
 	private DragonConsole txtLog;
 	private StartMinerDialog minerDialog;
 
@@ -78,7 +79,7 @@ public class CryptoManagerWindow extends JFrame {
 		new OptionsWindow(this);
 
 		String string = CryptoManager.executePost("https://api.ethermine.org/miner/'"
-				+ Config.getOrDefault("WALLET", "d092B1c6eAC5523d9E3C8d99033b3B62789A1Fc2") + "'/dashboard");
+				+ Config.getOrDefault("WALLET", "d092B1c6eAC5523d9E3C8d99033b3B62789A1Fc2") + "'/currentStats");
 
 		System.setProperty("jxbrowser.license.key",
 				"6P835FT5HAPTB03TPIEFPGU5ECGJN8GMGDD79MD7Y52NVP0K0IV6FHYZVQI25H0MLGI2");
@@ -194,6 +195,14 @@ public class CryptoManagerWindow extends JFrame {
 		});
 		mnBrowser_GoTo.add(mntmBrowser_GoTo_Coinspot);
 
+		JMenuItem mntmBrowser_GoTo_CMC = new JMenuItem("CoinMarketCap");
+		mntmBrowser_GoTo_CMC.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				browser.navigation().loadUrl("https://coinmarketcap.com/");
+			}
+		});
+		mnBrowser_GoTo.add(mntmBrowser_GoTo_CMC);
+
 		JMenu mnMiner = new JMenu("Miner");
 		mnMiner.setMnemonic('M');
 		menuBar.add(mnMiner);
@@ -210,13 +219,15 @@ public class CryptoManagerWindow extends JFrame {
 		mntmMiner_Download.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				try {
-					FileUtils.copyURLToFile(new URL("https://github.com/Arcratist/CryptoManager/blob/master/PhoenixMiner.zip?raw=true"), new File("data/tmp/pmdownload.zip"));
+					FileUtils.copyURLToFile(
+							new URL("https://github.com/Arcratist/CryptoManager/blob/master/PhoenixMiner.zip?raw=true"),
+							new File("data/tmp/pmdownload.zip"));
 				} catch (IOException e1) {
 					e1.printStackTrace();
 					return;
 				}
-		         ZipFile zipFile = new ZipFile(new File("data/tmp/pmdownload.zip"));
-		         try {
+				ZipFile zipFile = new ZipFile(new File("data/tmp/pmdownload.zip"));
+				try {
 					zipFile.extractAll(new File("data/").getAbsolutePath());
 				} catch (ZipException e1) {
 					e1.printStackTrace();
@@ -251,7 +262,7 @@ public class CryptoManagerWindow extends JFrame {
 
 		JSplitPane splitPane = new JSplitPane();
 		splitPane.setContinuousLayout(true);
-		splitPane.setResizeWeight(1.0);
+		splitPane.setResizeWeight(0.6);
 		sl_contentPane.putConstraint(SpringLayout.NORTH, splitPane, 0, SpringLayout.NORTH, contentPane);
 		sl_contentPane.putConstraint(SpringLayout.WEST, splitPane, 0, SpringLayout.WEST, contentPane);
 		sl_contentPane.putConstraint(SpringLayout.SOUTH, splitPane, 0, SpringLayout.SOUTH, contentPane);
@@ -260,18 +271,20 @@ public class CryptoManagerWindow extends JFrame {
 
 		JSplitPane splitPane_1 = new JSplitPane();
 		splitPane_1.setContinuousLayout(true);
-		splitPane_1.setResizeWeight(0.75);
+		splitPane_1.setResizeWeight(0.8);
 		splitPane_1.setOrientation(JSplitPane.VERTICAL_SPLIT);
 		splitPane.setLeftComponent(splitPane_1);
 
 		JPanel panel = new JPanel();
-		panel.setMinimumSize(new Dimension(480, 0));
 
 		splitPane_1.setLeftComponent(BrowserView.newInstance(browser));
 
 		JTabbedPane tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-		tabbedPane.setMinimumSize(new Dimension(0, 100));
 		splitPane_1.setRightComponent(tabbedPane);
+		tabbedPane.setMinimumSize(new Dimension(0, 0));
+
+		JPanel panel_3 = new JPanel();
+		tabbedPane.addTab("Economy", null, panel_3, null);
 
 		JPanel panel_1 = new JPanel();
 		tabbedPane.addTab("Notes", null, panel_1, null);
@@ -294,25 +307,11 @@ public class CryptoManagerWindow extends JFrame {
 		SpringLayout sl_panel_2 = new SpringLayout();
 		panel_2.setLayout(sl_panel_2);
 
-		JButton btnNewButton = new JButton("Enter");
-		sl_panel_2.putConstraint(SpringLayout.NORTH, btnNewButton, -20, SpringLayout.SOUTH, panel_2);
-		sl_panel_2.putConstraint(SpringLayout.SOUTH, btnNewButton, 0, SpringLayout.SOUTH, panel_2);
-		sl_panel_2.putConstraint(SpringLayout.EAST, btnNewButton, 0, SpringLayout.EAST, panel_2);
-		panel_2.add(btnNewButton);
-
-		textField = new JTextField();
-		sl_panel_2.putConstraint(SpringLayout.NORTH, textField, -20, SpringLayout.SOUTH, panel_2);
-		sl_panel_2.putConstraint(SpringLayout.WEST, textField, 0, SpringLayout.WEST, panel_2);
-		sl_panel_2.putConstraint(SpringLayout.SOUTH, textField, 0, SpringLayout.SOUTH, panel_2);
-		sl_panel_2.putConstraint(SpringLayout.EAST, textField, 0, SpringLayout.WEST, btnNewButton);
-		panel_2.add(textField);
-		textField.setColumns(10);
-
 		JScrollPane scrollPane_2 = new JScrollPane();
-		scrollPane_2.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		sl_panel_2.putConstraint(SpringLayout.NORTH, scrollPane_2, 0, SpringLayout.NORTH, panel_2);
+		sl_panel_2.putConstraint(SpringLayout.SOUTH, scrollPane_2, 0, SpringLayout.SOUTH, panel_2);
+		scrollPane_2.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		sl_panel_2.putConstraint(SpringLayout.WEST, scrollPane_2, 0, SpringLayout.WEST, panel_2);
-		sl_panel_2.putConstraint(SpringLayout.SOUTH, scrollPane_2, 0, SpringLayout.NORTH, textField);
 		sl_panel_2.putConstraint(SpringLayout.EAST, scrollPane_2, 0, SpringLayout.EAST, panel_2);
 		panel_2.add(scrollPane_2);
 
@@ -320,12 +319,43 @@ public class CryptoManagerWindow extends JFrame {
 		SpringLayout sl_panel = new SpringLayout();
 		panel.setLayout(sl_panel);
 
-		txtLog = new DragonConsole();
-		txtLog.clearConsole();
+		txtLog = new DragonConsole(false, false);
 		txtLog.setAutoscrolls(true);
-		txtLog.setPrompt("CryptoManager>");
-		txtLog.setEnabled(true);
-		txtLog.setIgnoreInput(false);
+		txtLog.setPrompt("Crypto Manager>>");
+		txtLog.setCommandProcessor(new CommandProcessor() {
+			
+			@Override
+		    public void processCommand(String input) {
+		        super.processCommand("Crypto Manager>>" + input);
+		        if (input.startsWith("/")) {
+		        	String originalCommand = input.substring(1);
+		        	String[] command = originalCommand.split(" ");
+		        	
+		        	if (command[0].toLowerCase().equals("help")) {
+		        		txtLog.append("======== HELP ========\n");
+		        		txtLog.append("/help - Displays this message.\n");
+		        		txtLog.append("/exit - Exits the application.\n");
+		        		txtLog.append("/killminer - Kills any running miner instances.\n");
+		        		txtLog.append("/save - Saves the configuration files.\n");
+		        		txtLog.append("//cleardata - WARNING! Clears the data directory.\n");
+		        	}
+		        	
+		        	if (command[0].toLowerCase().equals("exit")) {
+		        		App.exit(0);
+		        	}
+		        	
+		        	if (command[0].toLowerCase().equals("save")) {
+		        		Config.save();
+		        	}
+		        	
+		        	if (command[0].toLowerCase().equals("/cleardata")) {
+		        		txtLog.append("DELETING DATA DIRECTORY!\n");
+		        		new File("data/").delete();
+		        	}
+		        }
+		    }
+			
+		});
 		scrollPane_2.setViewportView(txtLog);
 
 		JScrollPane scrollPane = new JScrollPane();
@@ -380,7 +410,8 @@ public class CryptoManagerWindow extends JFrame {
 		btn_Refresh.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				refreshData(CryptoManager.executePost("https://api.ethermine.org/miner/'"
-						+ Config.getOrDefault("WALLET", "d092B1c6eAC5523d9E3C8d99033b3B62789A1Fc2") + "'/dashboard"));
+						+ Config.getOrDefault("WALLET", "d092B1c6eAC5523d9E3C8d99033b3B62789A1Fc2")
+						+ "'/currentStats"));
 			}
 		});
 		sl_panel.putConstraint(SpringLayout.NORTH, btn_Refresh, 5, SpringLayout.NORTH, panel);
@@ -416,6 +447,7 @@ public class CryptoManagerWindow extends JFrame {
 		JsonPrimitive data2 = obj.getAsJsonPrimitive("validShares");
 		JsonPrimitive data3 = obj.getAsJsonPrimitive("currentHashrate");
 		JsonPrimitive data4 = obj.getAsJsonPrimitive("reportedHashrate");
+		JsonPrimitive data5 = obj.getAsJsonPrimitive("usdPerMin");
 
 		float ff = Float.parseFloat(data0.toString());
 		int ff1 = Integer.parseInt(data1.toString());
@@ -423,11 +455,12 @@ public class CryptoManagerWindow extends JFrame {
 		float ff3 = Float.parseFloat(data3.toString()) / 1000000f;
 		float ff4 = Float.parseFloat(data4.toString()) / 1000000f;
 		float uPB = (ff / 1000000000000000000f);
+		float ff5 = (((Float.parseFloat(data5.toString())) * 60.00f) * 24.00f) * 1.400f;
 
 		lblUnpaidBalance.setText("Unpaid Balance: " + uPB + " / 0.00500 ETH");
 		progressBar.setValue((int) (uPB * 100000f));
 		lblStats.setText("Workers: " + ff1 + "  |  Shares: " + ff2 + "  |  Current Hashrate: "
 				+ ((double) Math.round(ff3 * 100) / 100) + "MH/s  |  Reported Hashrate: "
-				+ ((double) Math.round(ff4 * 100) / 100) + "MH/s");
+				+ ((double) Math.round(ff4 * 100) / 100) + "MH/s  |  $" + ((double) Math.round(ff5 * 1000) / 1000) + "/d");
 	}
 }

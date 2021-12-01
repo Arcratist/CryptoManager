@@ -53,9 +53,8 @@ public class CryptoManager {
 		jsonString = gson.toJson(el); // done
 		JsonObject obj = el.getAsJsonObject();
 		JsonObject data = obj.getAsJsonObject("data");
-		JsonObject currentStats = data.getAsJsonObject("currentStatistics");
 
-		jsonString = currentStats.toString();
+		jsonString = data.toString();
 
 		JsonElement el1 = parser.parse(jsonString);
 		jsonString = gson.toJson(el1); // done
