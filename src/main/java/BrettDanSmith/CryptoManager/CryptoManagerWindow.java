@@ -285,6 +285,8 @@ public class CryptoManagerWindow extends JFrame {
 
 		JPanel panel_3 = new JPanel();
 		tabbedPane.addTab("Economy", null, panel_3, null);
+		SpringLayout sl_panel_3 = new SpringLayout();
+		panel_3.setLayout(sl_panel_3);
 
 		JPanel panel_1 = new JPanel();
 		tabbedPane.addTab("Notes", null, panel_1, null);
@@ -455,7 +457,7 @@ public class CryptoManagerWindow extends JFrame {
 		float ff3 = Float.parseFloat(data3.toString()) / 1000000f;
 		float ff4 = Float.parseFloat(data4.toString()) / 1000000f;
 		float uPB = (ff / 1000000000000000000f);
-		float ff5 = (((Float.parseFloat(data5.toString())) * 60.00f) * 24.00f) * 1.400f;
+		float ff5 = (((Float.parseFloat(data5.toString())) * 60.00f) * 24.00f) * 1.430f;
 
 		lblUnpaidBalance.setText("Unpaid Balance: " + uPB + " / 0.00500 ETH");
 		progressBar.setValue((int) (uPB * 100000f));
