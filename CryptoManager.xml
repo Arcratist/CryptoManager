@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<launch4jConfig>
+  <dontWrapJar>false</dontWrapJar>
+  <headerType>gui</headerType>
+  <jar>E:\Development\Java\workspace-1\CryptoManager\CryptoManager.jar</jar>
+  <outfile>E:\Development\Java\workspace-1\CryptoManager\CryptoManager.exe</outfile>
+  <errTitle>ERROR: UPDATE TO **JAVA 16** OR ABOVE!</errTitle>
+  <cmdLine></cmdLine>
+  <chdir>.</chdir>
+  <priority>normal</priority>
+  <downloadUrl>http://java.com/download</downloadUrl>
+  <supportUrl></supportUrl>
+  <stayAlive>false</stayAlive>
+  <restartOnCrash>false</restartOnCrash>
+  <manifest></manifest>
+  <icon>E:\Development\Java\workspace-1\CryptoManager\src\main\java\BrettDanSmith\CryptoManager\icon.ico</icon>
+  <singleInstance>
+    <mutexName>BrettDanSmith.CryptoManager</mutexName>
+    <windowTitle>Crypto Manager</windowTitle>
+  </singleInstance>
+  <jre>
+    <path></path>
+    <bundledJre64Bit>false</bundledJre64Bit>
+    <bundledJreAsFallback>false</bundledJreAsFallback>
+    <minVersion>1.16</minVersion>
+    <maxVersion></maxVersion>
+    <jdkPreference>preferJdk</jdkPreference>
+    <runtimeBits>64</runtimeBits>
+  </jre>
+</launch4jConfig>
