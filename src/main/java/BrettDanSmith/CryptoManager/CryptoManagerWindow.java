@@ -238,6 +238,19 @@ public class CryptoManagerWindow extends JFrame {
 		mntmMiner_Start.setToolTipText(
 				"Starts PhoenixMiner in a separate process than the Crypto Manager.\nClosing the Crypto Manager will not close PhoenixMiner and vice versa.");
 		mnMiner.add(mntmMiner_Start);
+		
+		JMenu mnVirtual = new JMenu("Virtual");
+		mnVirtual.setMnemonic('V');
+		menuBar.add(mnVirtual);
+		
+		JMenuItem mntmVirtual_VD = new JMenuItem("Virtual Desktop");
+		mntmVirtual_VD.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				VirtualDesktopWindow virtualDesktopWindow = new VirtualDesktopWindow();
+				virtualDesktopWindow.setVisible(true);
+			}
+		});
+		mnVirtual.add(mntmVirtual_VD);
 
 		JMenu mnAbout = new JMenu("About");
 		mnAbout.setMnemonic('A');
@@ -457,7 +470,7 @@ public class CryptoManagerWindow extends JFrame {
 		float ff3 = Float.parseFloat(data3.toString()) / 1000000f;
 		float ff4 = Float.parseFloat(data4.toString()) / 1000000f;
 		float uPB = (ff / 1000000000000000000f);
-		float ff5 = (((Float.parseFloat(data5.toString())) * 60.00f) * 24.00f) * 1.430f;
+		float ff5 = (((Float.parseFloat(data5.toString())) * 60.00f) * 24.00f) * 1.410f;
 
 		lblUnpaidBalance.setText("Unpaid Balance: " + uPB + " / 0.00500 ETH");
 		progressBar.setValue((int) (uPB * 100000f));
